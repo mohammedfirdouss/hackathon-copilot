@@ -35,7 +35,8 @@ track = "Track 2: Best Personal or Creative Workflow"
   id = "video"
   text = "Demo video under 3 min on YouTube or Loom"
   check = "manual"
-  done = false
+  done = true
+  link = "https://youtu.be/grlG3IVaWHw"
 
   [[hackathon.requirement]]
   id = "form"
