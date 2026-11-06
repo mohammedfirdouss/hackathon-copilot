@@ -314,21 +314,21 @@ def brief(cfg: Config, now: datetime) -> dict:
 def render_brief(data: dict, cfg: Config) -> str:
     if not data["hackathons"]:
         return "No upcoming hackathons."
-    lines = []
+    lines = ["**What's due**"]
     for item in data["hackathons"]:
         line = (
-            f"{STATUS_ICONS[item['status']]} {item['name']}: "
+            f"- {STATUS_ICONS[item['status']]} **{item['name']}**: "
             f"{item['deadline_local']}, {item['countdown']}"
         )
         if item["manual_total"]:
-            line += f", manual: {item['manual_done']}/{item['manual_total']} done"
+            line += f", {item['manual_done']}/{item['manual_total']} manual done"
         lines.append(line)
     nxt = data["next"]
     if nxt:
         name = cfg.get(nxt["hackathon"]).name
-        lines.append(f"Most urgent: {nxt['text']} ({name}, {nxt['countdown']})")
+        lines += ["", f"**Do first**: {nxt['text']} ({name}, {nxt['countdown']})"]
     else:
-        lines.append("Nothing manual left to do.")
+        lines += ["", "**Nothing manual left to do.**"]
     return "\n".join(lines)
 
 
@@ -364,9 +364,9 @@ def check(h: Hackathon, cfg: Config, now: datetime, gh: Gh) -> dict:
 
 
 def render_check(data: dict) -> str:
-    lines = [f"{data['name']}: {data['deadline_local']}, {data['countdown']}"]
+    lines = [f"**{data['name']}**: {data['deadline_local']}, {data['countdown']}"]
     for r in data["requirements"]:
-        line = f"{VERDICT_ICONS[r['ok']]} {r['text']}"
+        line = f"- {VERDICT_ICONS[r['ok']]} {r['text']}"
         if r["optional"]:
             line += " (optional)"
         line += f": {r['detail']}"
@@ -374,7 +374,8 @@ def render_check(data: dict) -> str:
             line += f" {r['link']}"
         lines.append(line)
     n = data["blocking"]
-    lines.append("Ready to submit" if n == 0 else f"{n} blocking item{'s' * (n != 1)}")
+    # The blank line stops Markdown folding the verdict into the last list item.
+    lines += ["", "**Ready to submit**" if n == 0 else f"**{n} blocking item{'s' * (n != 1)}**"]
     return "\n".join(lines)
 
 

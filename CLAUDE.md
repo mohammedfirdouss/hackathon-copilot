@@ -18,7 +18,7 @@ If the script fails, send me the error as it printed it. Don't guess an answer.
 
 ## Writing for Telegram
 
-Telegram doesn't render tables. Use one short line per item. Keep a reply under about 15 lines unless I ask for more. Lead with the answer. Times are in my timezone, `Africa/Lagos` (WAT), which the script already uses.
+Send the script's output exactly as it prints it. Don't merge its lines or rewrite them into a paragraph. Put your own advice after it, separated by a blank line. Telegram doesn't render tables. When you write a list yourself, start each item with `- ` on its own line. Keep a reply under about 15 lines unless I ask for more. Lead with the answer. Times are in my timezone, `Africa/Lagos` (WAT), which the script already uses.
 
 ## What you never do
 

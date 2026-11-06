@@ -133,9 +133,11 @@ class BriefTest(unittest.TestCase):
         self.assertEqual(
             out.splitlines(),
             [
-                "🤔 Soon Hack: Fri 6 Nov 13:10 WAT, 4h 10m left, manual: 0/1 done",
-                "🏁 Later Hack: Sun 8 Nov 08:00 WAT, 1d 23h left, manual: 1/2 done",
-                "Most urgent: Registered (Soon Hack, 4h 10m left)",
+                "**What's due**",
+                "- 🤔 **Soon Hack**: Fri 6 Nov 13:10 WAT, 4h 10m left, 0/1 manual done",
+                "- 🏁 **Later Hack**: Sun 8 Nov 08:00 WAT, 1d 23h left, 1/2 manual done",
+                "",
+                "**Do first**: Registered (Soon Hack, 4h 10m left)",
             ],
         )
 
@@ -162,29 +164,29 @@ class CountdownTest(unittest.TestCase):
 
     def test_check_on_past_hackathon_says_closed(self):
         _, out, _ = run(CONFIG, ["check", "past"])
-        self.assertEqual(out.splitlines()[0], "Past Hack: Sun 1 Nov 01:00 WAT, CLOSED")
+        self.assertEqual(out.splitlines()[0], "**Past Hack**: Sun 1 Nov 01:00 WAT, CLOSED")
 
 
 class CheckTest(unittest.TestCase):
     def verdict(self, req: str, gh=None, repo="me/app") -> str:
         code, out, _ = run(hackathon_with(req, repo), ["check", "h"], gh)
         self.assertEqual(code, 0)
-        return out.splitlines()[1]
+        return out.splitlines()[1].removeprefix("- ")
 
     def test_manual_with_link_and_optional(self):
         code, out, _ = run(CONFIG, ["check", "later"])
         self.assertEqual(
             out.splitlines()[1:],
-            ["✅ Video: done https://youtu.be/abc", "❌ Form sent: not done", "1 blocking item"],
+            ["- ✅ Video: done https://youtu.be/abc", "- ❌ Form sent: not done", "", "**1 blocking item**"],
         )
         _, out, _ = run(CONFIG, ["check", "soon"])
         self.assertIn("❌ Blog post (optional): not done", out)
-        self.assertTrue(out.endswith("1 blocking item\n"))
+        self.assertTrue(out.endswith("**1 blocking item**\n"))
 
     def test_dropped_hackathon_can_still_be_checked(self):
         code, out, _ = run(CONFIG, ["check", "gone"])
         self.assertEqual(code, 0)
-        self.assertTrue(out.endswith("Ready to submit\n"))
+        self.assertTrue(out.endswith("**Ready to submit**\n"))
 
     def test_repo_public(self):
         line = self.verdict(requirement("repo_public"), FakeGh({"repos/me/app": ok("public\n")}))
@@ -215,7 +217,7 @@ class CheckTest(unittest.TestCase):
         self.assertTrue(line.startswith("⚠️"), line)
         _, out, _ = run(hackathon_with(requirement("repo_public"), None), ["check", "h"])
         self.assertIn("⚠️ Thing: no repo set", out)
-        self.assertTrue(out.endswith("1 blocking item\n"))
+        self.assertTrue(out.endswith("**1 blocking item**\n"))
 
     def test_url_up(self):
         class Handler(BaseHTTPRequestHandler):
@@ -242,7 +244,7 @@ class CheckTest(unittest.TestCase):
     def test_ready_when_all_required_pass(self):
         req = requirement("repo_public") + "\n" + requirement("manual", optional=True)
         _, out, _ = run(hackathon_with(req), ["check", "h"], FakeGh({"repos/me/app": ok("public\n")}))
-        self.assertTrue(out.endswith("Ready to submit\n"))
+        self.assertTrue(out.endswith("**Ready to submit**\n"))
 
     def test_json(self):
         _, out, _ = run(CONFIG, ["check", "later", "--json"])
