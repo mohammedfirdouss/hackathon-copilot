@@ -2,6 +2,8 @@
 
 A Claude Code agent in a Telegram group that keeps me from missing a hackathon deadline or submitting with a requirement missing. [Switch](https://github.com/sandbox-quantum/switch) runs the agent on my laptop and puts it in the group.
 
+Demo video (1:28): https://youtu.be/grlG3IVaWHw
+
 I'm a student entering five hackathons in November 2026, with deadlines on the 7th, 11th, 12th, 14th and 20th. Each has its own submission form, video length and repo rules, in a different timezone. I kept checking five tabs to work out what was due. Now I ask the group from my phone:
 
 ```text
