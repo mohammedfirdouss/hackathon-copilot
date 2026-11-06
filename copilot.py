@@ -145,6 +145,7 @@ def check_url_up(req: Requirement, h: Hackathon, gh: Gh) -> Result:
             ) as resp:
                 return Result(True, f"HTTP {resp.status}")
         except urllib.error.HTTPError as e:
+            e.close()
             last = f"HTTP {e.code}"
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             last = str(getattr(e, "reason", e))
