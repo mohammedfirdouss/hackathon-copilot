@@ -42,7 +42,7 @@ track = "Track 2: Best Personal or Creative Workflow"
   id = "form"
   text = "Submission form sent"
   check = "manual"
-  done = false
+  done = true
 
   [[hackathon.requirement]]
   id = "blog"
