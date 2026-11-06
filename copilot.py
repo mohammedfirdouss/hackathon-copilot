@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import ssl
 import subprocess
 import sys
 import tomllib
@@ -148,7 +149,10 @@ def check_url_up(req: Requirement, h: Hackathon, gh: Gh) -> Result:
             e.close()
             last = f"HTTP {e.code}"
         except (urllib.error.URLError, TimeoutError, OSError) as e:
-            last = str(getattr(e, "reason", e))
+            reason = getattr(e, "reason", e)
+            if isinstance(reason, ssl.SSLCertVerificationError):
+                return Result(None, "this Python has no CA certificates (run its Install Certificates.command)")
+            last = str(reason)
     return Result(False, f"down: {last}")
 
 
