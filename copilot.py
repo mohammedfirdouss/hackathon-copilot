@@ -136,13 +136,21 @@ def check_readme_mentions(req: Requirement, h: Hackathon, gh: Gh) -> Result:
     return Result(found, f"{'mentions' if found else 'missing'} \"{req.arg}\"")
 
 
+def tls_context() -> ssl.SSLContext:
+    # python.org builds on macOS ship without a CA bundle; fall back to the system one.
+    cafile = ssl.get_default_verify_paths().cafile
+    if not (cafile and Path(cafile).exists()) and Path("/etc/ssl/cert.pem").exists():
+        return ssl.create_default_context(cafile="/etc/ssl/cert.pem")
+    return ssl.create_default_context()
+
+
 def check_url_up(req: Requirement, h: Hackathon, gh: Gh) -> Result:
     last = ""
     # Some hosts reject HEAD (405) while serving GET fine, so fall back to GET.
     for method in ("HEAD", "GET"):
         try:
             with urllib.request.urlopen(
-                urllib.request.Request(req.arg, method=method), timeout=10
+                urllib.request.Request(req.arg, method=method), timeout=10, context=tls_context()
             ) as resp:
                 return Result(True, f"HTTP {resp.status}")
         except urllib.error.HTTPError as e:
