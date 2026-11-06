@@ -1,0 +1,180 @@
+# The hackathons I'm entering. The co-pilot agent reads this file and edits it
+# when I tell it something is done. Deadlines carry their own UTC offset.
+#
+# check types:
+#   manual            done = true/false, set by me (through the agent)
+#   repo_public       the hackathon's repo is public on GitHub
+#   repo_has_license  the repo has a license GitHub recognises
+#   readme_mentions   the README contains `arg` (case-insensitive)
+#   url_up            `arg` answers with HTTP 2xx/3xx
+#   starred           I have starred the repo `arg`
+
+timezone = "Africa/Lagos"
+
+[[hackathon]]
+id = "switch"
+name = "Flip the Switch (WeMakeDevs)"
+url = "https://www.wemakedevs.org/hackathons/switch"
+deadline = "2026-11-07T23:59:00+05:30"
+status = "entered"
+repo = "mohammedfirdouss/hackathon-copilot"
+track = "Track 2: Best Personal or Creative Workflow"
+
+  [[hackathon.requirement]]
+  id = "repo-public"
+  text = "Public repository"
+  check = "repo_public"
+
+  [[hackathon.requirement]]
+  id = "readme-switch"
+  text = "README explains how Switch is used"
+  check = "readme_mentions"
+  arg = "Switch Console"
+
+  [[hackathon.requirement]]
+  id = "video"
+  text = "Demo video under 3 min on YouTube or Loom"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "form"
+  text = "Submission form sent"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "blog"
+  text = "Blog post (Best Blog)"
+  check = "manual"
+  done = false
+  optional = true
+
+[[hackathon]]
+id = "bountypay"
+name = "PayPal AI Hackathon (BountyPay)"
+url = "https://paypal-ai.devpost.com"
+deadline = "2026-11-12T12:00:00-08:00"
+status = "entered"
+repo = "mohammedfirdouss/bountypay"
+
+  [[hackathon.requirement]]
+  id = "repo-public"
+  text = "Public repository"
+  check = "repo_public"
+
+  [[hackathon.requirement]]
+  id = "license"
+  text = "Visible open-source license"
+  check = "repo_has_license"
+
+  [[hackathon.requirement]]
+  id = "demo-live"
+  text = "Runnable demo is up"
+  check = "url_up"
+  arg = "https://bountypay.onrender.com"
+
+  [[hackathon.requirement]]
+  id = "video"
+  text = "Demo video under 3 min on YouTube"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "form"
+  text = "Devpost submission sent"
+  check = "manual"
+  done = false
+
+[[hackathon]]
+id = "mozilla-otari"
+name = "Mozilla Otari: Devs Wilding Online"
+url = "https://dorahacks.io/hackathon/mozilla-devs-wilding/detail"
+deadline = "2026-11-11T23:59:00+01:00"
+status = "considering"
+
+  [[hackathon.requirement]]
+  id = "register"
+  text = "Registered on DoraHacks"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "star"
+  text = "Starred the Otari repo"
+  check = "starred"
+  arg = "mozilla-ai/otari"
+
+  [[hackathon.requirement]]
+  id = "otari-commit"
+  text = "Project uses Otari.ai on a hackathon branch"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "demo-video"
+  text = "3-5 min demo video (own voice, no AI video)"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "feedback"
+  text = "3-5 min feedback recording and written feedback"
+  check = "manual"
+  done = false
+
+[[hackathon]]
+id = "near"
+name = "NEAR Hackathon"
+url = "https://nearhackathon.com/"
+deadline = "2026-11-14T23:59:00+00:00"
+status = "considering"
+
+  [[hackathon.requirement]]
+  id = "repo-public"
+  text = "Public repository"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "x-post"
+  text = "Demo posted on X tagging @NEARProtocol #NEARHackathon"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "form"
+  text = "Submission form with repo and X post links"
+  check = "manual"
+  done = false
+
+[[hackathon]]
+id = "dakar"
+name = "Dakar Bitcoin Hack (Ajo on Lightning)"
+url = "https://dakar-bitcoin-hack-2026.devpost.com"
+deadline = "2026-11-20T20:00:00+00:00"
+status = "entered"
+repo = "mohammedfirdouss/ajo-lightning"
+
+  [[hackathon.requirement]]
+  id = "repo-public"
+  text = "Public repository"
+  check = "repo_public"
+
+  [[hackathon.requirement]]
+  id = "lightning"
+  text = "Lightning wallet implementation"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "presentation"
+  text = "Presentation slides"
+  check = "manual"
+  done = false
+
+  [[hackathon.requirement]]
+  id = "video"
+  text = "MVP or demo video"
+  check = "manual"
+  done = false
