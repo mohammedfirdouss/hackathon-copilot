@@ -21,6 +21,8 @@ copilot: ✅ Public repository: mohammedfirdouss/bountypay is public
          2 blocking items. Record the video first.
 ```
 
+<img src="docs/whats-due.png" alt="The co-pilot answering what's due in Telegram" width="49%"> <img src="docs/check-bountypay.png" alt="The co-pilot checking whether BountyPay is ready" width="49%">
+
 When I tell it "the bountypay video is up: <link>", it marks the requirement done in `hackathons.toml` and commits the change. When I paste a new hackathon's URL, it reads the rules page and adds the hackathon with one requirement per rule.
 
 ## How it works
