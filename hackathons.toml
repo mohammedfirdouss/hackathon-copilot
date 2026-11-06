@@ -48,7 +48,8 @@ track = "Track 2: Best Personal or Creative Workflow"
   id = "blog"
   text = "Blog post (Best Blog)"
   check = "manual"
-  done = false
+  done = true
+  link = "https://dev.to/mohammedfirdouss/i-put-a-claude-code-agent-in-my-telegram-group-so-id-stop-missing-hackathon-deadlines-3elb"
   optional = true
 
 [[hackathon]]
